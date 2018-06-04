@@ -1,5 +1,5 @@
 <template>
-  <div class="home-header">
+  <div class="m-header">
     <div class="icon"></div>
     <h1 class="text">Cocobean Music</h1>
     <router-link tag="div" class="mine" to="/user">
@@ -10,15 +10,15 @@
 
 <script>
 export default {
-  name: 'HomeHeader'
+  name: "MHeader"
 }
 </script>
 
 <style lang="stylus" scoped>
-  @import "../../../common/stylus/variable";
-  @import "../../../common/stylus/mixin";
+  @import "../common/stylus/variable";
+  @import "../common/stylus/mixin";
 
-  .home-header
+  .m-header
     position relative
     height 44px
     text-align center
@@ -31,7 +31,7 @@ export default {
       width 30px
       height 32px
       margin-right 9px
-      bg-image('../../../assets/images/logo')
+      bg-image("../assets/images/logo")
       background-size 30px 32px
     .text
       display inline-block
