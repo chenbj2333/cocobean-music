@@ -33,7 +33,7 @@
 import { getRecommend } from "../../api/recommend.js";
 import { ERR_OK } from "../../api/config.js";
 import Slider from "../../base/slider/Slider.vue";
-import Scroll from '../../base/scroll/Scroll.vue';
+import Scroll from "../../base/scroll/Scroll.vue";
 
 export default {
   name: "Recommend",
