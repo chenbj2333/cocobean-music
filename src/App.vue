@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import MHeader from "./components/MHeader";
+import MHeader from "./components/m-header/MHeader";
 import Tab from "./views/tab/Tab";
 
 export default {

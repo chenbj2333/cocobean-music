@@ -1,27 +1,58 @@
 <template>
   <div class="recommend" ref="recommend">
-    <div class="recommend-list">
-      <h1 class="list-title">热门歌单推荐</h1>
-    </div>
+    <scroll ref="scroll" class="recommend-content" :data="discList">
+      <div>
+        <div v-if="recommendSlider.length" class="slider-wrapper" ref="sliderWrapper">
+          <slider>
+            <div v-for="item of recommendSlider" :key="item.id">
+              <a :href="item.linkUrl">
+                <img class="needsclick" :src="item.picUrl">
+              </a>
+            </div>
+          </slider>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title">电台</h1>
+          <div class="list-content">
+            <div v-for="item of discList" :key="item.radioid" class="item">
+              <div class="icon">
+                <img :src="item.picUrl" alt="">
+              </div>
+              <div class="text">
+                {{item.Ftitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </scroll>
   </div>
 </template>
 
 <script>
 import { getRecommend } from "../../api/recommend.js";
 import { ERR_OK } from "../../api/config.js";
+import Slider from "../../base/slider/Slider.vue";
+import Scroll from '../../base/scroll/Scroll.vue';
 
 export default {
   name: "Recommend",
+  components: {
+    Slider,
+    Scroll
+  },
   data() {
     return {
-      recommendData: {}
+      recommendSlider: [],
+      discList: []
     };
   },
   methods: {
     _getRecommend() {
       getRecommend().then(res => {
         if (res.code === ERR_OK) {
-          this.recommendData = res.data;
+          this.recommendSlider = res.data.slider;
+          this.discList = res.data.radioList;
         }
       });
     }
@@ -54,28 +85,23 @@ export default {
           text-align: center
           font-size: $font-size-medium
           color: $color-theme
-        .item
-          display: flex
-          box-sizing: border-box
-          align-items: center
-          padding: 0 20px 20px 20px
-          .icon
-            flex: 0 0 60px
-            width: 60px
-            padding-right: 20px
-          .text
-            display: flex
-            flex-direction: column
-            justify-content: center
-            flex: 1
-            line-height: 20px
-            overflow: hidden
-            font-size: $font-size-medium
-            .name
-              margin-bottom: 10px
+        .list-content
+          display flex
+          flex-direction row
+          justify-content space-around
+          width 100%
+          .item
+            width 46%
+            box-sizing border-box
+            align-items center
+            .icon
+              width 100%
+              img
+                width 100%
+            .text
+              text-align center
+              font-size: $font-size-medium
               color: $color-text
-            .desc
-              color: $color-text-d
       .loading-container
         position: absolute
         width: 100%

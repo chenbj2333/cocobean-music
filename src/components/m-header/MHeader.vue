@@ -11,12 +11,12 @@
 <script>
 export default {
   name: "MHeader"
-}
+};
 </script>
 
 <style lang="stylus" scoped>
-  @import "../common/stylus/variable";
-  @import "../common/stylus/mixin";
+  @import "../../common/stylus/variable";
+  @import "../../common/stylus/mixin";
 
   .m-header
     position relative
@@ -31,7 +31,7 @@ export default {
       width 30px
       height 32px
       margin-right 9px
-      bg-image("../assets/images/logo")
+      bg-image("../../assets/images/logo")
       background-size 30px 32px
     .text
       display inline-block
