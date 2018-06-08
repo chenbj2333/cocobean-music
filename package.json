@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "proxy": "node proxy/proxy-server.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -23,6 +24,7 @@
     "@vue/cli-service": "^3.0.0-beta.15",
     "@vue/eslint-config-prettier": "^3.0.0-beta.15",
     "babel-polyfill": "^6.26.0",
+    "json-server": "^0.13.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.5.16"

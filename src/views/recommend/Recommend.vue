@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { getRecommend } from "../../api/recommend.js";
+import { getRecommend, getDiscList } from "../../api/recommend.js";
 import { ERR_OK } from "../../api/config.js";
 import Slider from "../../base/slider/Slider.vue";
 import Scroll from "../../base/scroll/Scroll.vue";
@@ -55,10 +55,18 @@ export default {
           this.discList = res.data.radioList;
         }
       });
+    },
+    _getDiscList() {
+      getDiscList().then((res) => {
+        console.log(res.data);
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   },
   mounted() {
     this._getRecommend();
+    this._getDiscList();
   }
 };
 </script>
