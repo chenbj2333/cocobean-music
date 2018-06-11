@@ -11,29 +11,16 @@
             </div>
           </slider>
         </div>
-        <div class="recommend-dt">
-          <h1 class="list-title">电台</h1>
-          <div class="list-content">
-            <div v-for="item of recommendList" :key="item.radioid" class="item">
-              <div class="icon">
-                <img v-lazy="item.picUrl" alt="">
-              </div>
-              <div class="text">
-                {{item.Ftitle}}
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="recommend-list">
           <h1 class="list-hot-title">热门歌单推荐</h1>
           <ul class="ul-content">
-            <li @click="selectItem(item)" v-for="item in discList" class="item" :key="item.id">
+            <li @click="selectItem(item)" v-for="item in discList" class="item" :key="item.dissid">
               <div class="icon">
                 <img width="60" height="60" v-lazy="item.imgurl">
               </div>
               <div class="text">
-                <h2 class="name">{{item.name}}</h2>
-                <p class="desc">{{item.dissname}}</p>
+                <h2 class="name" v-html="item.creator.name"></h2>
+                <p class="desc" v-html="item.dissname"></p>
               </div>
             </li>
           </ul>
@@ -59,7 +46,6 @@ export default {
     return {
       checkLoaded: false,
       recommendSlider: [],
-      recommendList: [],
       discList: []
     };
   },
@@ -68,15 +54,14 @@ export default {
       getRecommend().then(res => {
         if (res.code === ERR_OK) {
           this.recommendSlider = res.data.slider;
-          this.recommendList = res.data.radioList;
         }
       });
     },
     _getDiscList() {
-      getDiscList().then((res) => {
-        this.discList = res.data;
-      }).catch((error) => {
-        console.log(error);
+      getDiscList().then(res => {
+        if (res.code === ERR_OK) {
+          this.discList = res.data.list
+        }
       });
     },
     loadImage() {
