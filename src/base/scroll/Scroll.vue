@@ -63,7 +63,8 @@ export default {
 
       if (this.pullup) {
         this.scroll.on("scrollEnd", () => {
-          if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+          const maxY = this.scroll.maxScrollY + 50;
+          if (this.scroll.y <= maxY) {
             this.$emit("scrollToEnd");
           }
         });
