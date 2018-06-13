@@ -32,14 +32,14 @@ export default {
       });
     },
     selectSinger(item) {
-      // 或者this.$router.push({ name: 'singer', params: { id: item.singer_id }})
+      // 或者this.$router.push({ name: "singer", params: { id: item.singer_id }})
       this.$router.push({
         path: `/singer/${item.singer_mid}`
       });
       this.setSinger(item);
     },
-    ...mapMutations('singer', {
-      setSinger: 'SET_SINGER'
+    ...mapMutations("singer", {
+      setSinger: "SET_SINGER"
     })
   },
   mounted() {

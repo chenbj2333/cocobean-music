@@ -7,7 +7,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getDetail, getSingerDetail } from "../../../api/singer.js";
+import { getSingerDetail } from "../../../api/singer.js";
 import { ERR_OK } from "../../../api/config.js";
 import { createSong } from "../../../common/js/song.js";
 
@@ -16,17 +16,17 @@ export default {
   data() {
     return {
       songs: []
-    }
+    };
   },
   computed: {
-    ...mapGetters('singer', {
-      singer: 'singer'
+    ...mapGetters("singer", {
+      singer: "singer"
     })
   },
   methods: {
     _getDetail() {
       if (!this.singer.singer_mid) {
-        this.$router.push('/singer');
+        this.$router.push("/singer");
       }
       getSingerDetail(this.singer.singer_mid).then(res => {
         if (res.code === ERR_OK) {

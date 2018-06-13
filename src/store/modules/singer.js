@@ -8,8 +8,7 @@ const getters = {
   singer: state => state.singer
 };
 
-const actions = {
-};
+const actions = {};
 
 const mutations = {
   [types.SET_SINGER](state, payload) {
