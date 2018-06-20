@@ -16,7 +16,7 @@
     <div class="bg-layer" ref="layer"></div>
     <scroll @scroll="scroll" :data="songs" class="list" ref="list" :probe-type="probeType" :listen-scroll="listenScroll">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
       <div v-show="!songs.length" class="loading-container">
         <loading></loading>
@@ -71,6 +71,12 @@ export default {
     },
     scroll(pos) {
       this.scrollY = pos.y;
+    },
+    selectItem(item, index) {
+      this.$store.dispatch('playList/selectPlay', {
+        list: this.songs,
+        index
+      });
     }
   },
   watch: {
