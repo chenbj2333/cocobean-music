@@ -73,7 +73,7 @@ export default {
       this.scrollY = pos.y;
     },
     selectItem(item, index) {
-      this.$store.dispatch('playList/selectPlay', {
+      this.$store.dispatch("playList/selectPlay", {
         list: this.songs,
         index
       });
