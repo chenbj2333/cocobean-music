@@ -1,3 +1,7 @@
+import { Base64 } from "js-base64";
+import { getLyric } from "../../api/singer";
+import { ERR_OK } from "../../api/config.js";
+
 export default class Song {
   constructor({ id, mid, singer, name, album, duration, image, url }) {
     this.id = id;
@@ -8,6 +12,23 @@ export default class Song {
     this.duration = duration;
     this.image = image;
     this.url = url;
+  }
+
+  getLyric() {
+    if (this.lyric) {
+      return Promise.resolve(this.lyric);
+    }
+
+    return new Promise((resolve, reject) => {
+      getLyric(this.mid).then(res => {
+        if (res.retcode === ERR_OK) {
+          this.lyric = Base64.decode(res.lyric);
+          resolve(this.lyric);
+        } else {
+          reject("no lyric");
+        }
+      });
+    });
   }
 }
 
@@ -20,7 +41,7 @@ export function createSong(musicData) {
     album: musicData.albumname,
     duration: musicData.interval,
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.strMediaMid}.m4a?vkey=26BE668E8A2821058E771C42D01FC34013EC9A45565893F81F5C8F4F9DD5A427C5A9C436B4AE353A13E90B078FC7102C7A1C9091443EB8B9&guid=2968077744&uin=70345389&fromtag=66`
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.strMediaMid}.m4a?vkey=39F01A06A86D68E524E50B0D66711F4ABBACC6BB4B1A9FC9370F5904C59A89FB9CE29C1E65B4E8BDD0C2BE425AFB08AF33A84BC7708E5E38&guid=2968077744&uin=70345389&fromtag=66`
   });
 }
 

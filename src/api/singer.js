@@ -1,3 +1,4 @@
+import axios from "axios";
 import jsonp from "../common/js/jsonp";
 import { commonParams, options } from "./config";
 
@@ -33,4 +34,30 @@ export function getSingerDetail(singerId) {
   });
 
   return jsonp(url, data, options);
+}
+
+export function getLyric(songmid) {
+  const url = "/api/getLyric";
+  const data = Object.assign({}, commonParams, {
+    callback: "MusicJsonCallback_lrc",
+    pcachetime: 1529636330857,
+    songmid,
+    g_tk: 751272522,
+    jsonpCallback: "MusicJsonCallback_lrc",
+    loginUin: 70345389,
+    hostUin: 0,
+    format: "jsonp",
+    inCharset: "utf8",
+    outCharset: "utf-8",
+    notice: 0,
+    platform: "yqq",
+    needNewCode: 0
+  });
+  return axios
+    .get(url, {
+      params: data
+    })
+    .then(res => {
+      return Promise.resolve(res.data);
+    });
 }

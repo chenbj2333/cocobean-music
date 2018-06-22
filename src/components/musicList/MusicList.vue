@@ -6,7 +6,7 @@
     <h1 class="title">{{title}}</h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
-        <div class="play" v-show="songs.length > 0" ref="playBtn">
+        <div @click="random" class="play" v-show="songs.length > 0" ref="playBtn">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
@@ -77,6 +77,11 @@ export default {
         list: this.songs,
         index
       });
+    },
+    random() {
+      this.$store.dispatch("playList/randomPlay", {
+        list: this.songs,
+      })
     }
   },
   watch: {
