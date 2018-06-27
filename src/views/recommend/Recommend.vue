@@ -39,6 +39,7 @@ import { ERR_OK } from "../../api/config.js";
 import Slider from "../../base/slider/Slider.vue";
 import Scroll from "../../base/scroll/Scroll.vue";
 import Loading from "../../base/loading/Loading.vue";
+import { playlistMixin } from "../../common/js/mixin.js";
 
 export default {
   name: "Recommend",
@@ -47,6 +48,7 @@ export default {
     Scroll,
     Loading
   },
+  mixins: [playlistMixin],
   data() {
     return {
       checkLoaded: false,
@@ -74,9 +76,14 @@ export default {
         this.$refs.scroll.refresh();
         this.checkLoaded = true;
       }
+    },
+    handlePlaylist(playlist) {
+      const bottom = playlist && playlist.length > 0 ? "60px" : "";
+      this.$refs.recommend.style.bottom = bottom;
+      this.$refs.scroll.refresh();
     }
   },
-  mounted() {
+  created() {
     this._getRecommend();
     this._getDiscList();
   }

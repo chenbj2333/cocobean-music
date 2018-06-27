@@ -29,6 +29,7 @@
 import SongList from "../../base/songlist/SongList";
 import Scroll from "../../base/scroll/Scroll";
 import Loading from "../../base/loading/Loading.vue";
+import { playlistMixin } from "../../common/js/mixin.js";
 
 const RESERED_HEIGHT = 40;
 
@@ -39,6 +40,7 @@ export default {
     Scroll,
     Loading
   },
+  mixins: [playlistMixin],
   props: {
     bgImage: {
       type: String,
@@ -82,6 +84,11 @@ export default {
       this.$store.dispatch("playList/randomPlay", {
         list: this.songs,
       })
+    },
+    handlePlaylist(playlist) {
+      const bottom = playlist && playlist.length > 0 ? "60px" : "";
+      this.$refs.list.$el.style.bottom = bottom;
+      this.$refs.list.refresh();
     }
   },
   watch: {

@@ -42,7 +42,7 @@ export default {
       setSinger: "SET_SINGER"
     })
   },
-  mounted() {
+  created() {
     this._getSingerList();
   }
 };

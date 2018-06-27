@@ -1,6 +1,6 @@
 <template>
   <scroll ref="scroll" class="listview" :data="data">
-    <ul class="list-group">
+    <ul class="list-group" ref="ul">
       <h2 class="list-group-title">热门</h2>
       <li @click="selectItem(item)" v-for="item in data" class="list-group-item" :key="item.singer_id">
         <div class="icon">
@@ -20,6 +20,7 @@
 <script>
 import Scroll from "../scroll/Scroll.vue";
 import Loading from "../loading/Loading.vue";
+import { playlistMixin } from "../../common/js/mixin.js";
 
 export default {
   name: "ListView",
@@ -27,6 +28,7 @@ export default {
     Scroll,
     Loading
   },
+  mixins: [playlistMixin],
   props: {
     data: {
       type: Array,
@@ -37,6 +39,11 @@ export default {
     selectItem(item) {
       this.$emit('select', item)
     },
+    handlePlaylist(playlist) {
+      const bottom = playlist && playlist.length > 0 ? "60px" : "";
+      this.$refs.ul.style.bottom = bottom;
+      this.$refs.scroll.refresh();
+    }
   }
 };
 </script>
