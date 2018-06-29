@@ -2,7 +2,8 @@ var axios = require("axios");
 
 module.exports = {
   "GET:/getDiscList": getDiscList,
-  "GET:/getLyric": getLyric
+  "GET:/getLyric": getLyric,
+  "GET:/getSongList": getSongList
 };
 
 function getDiscList(req, res) {
@@ -43,6 +44,29 @@ function getLyric(req, res) {
         }
       }
       res.json(ret);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+}
+
+function getSongList(req, res) {
+  var url = "https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg";
+  axios
+    .get(url, {
+      headers: {
+        referer: "https://c.y.qq.com/",
+        host: "c.y.qq.com"
+      },
+      params: req.query
+    })
+    .then(response => {
+      let ret = response.data;
+      if (typeof ret === "string") {
+        ret = ret.replace("playlistinfoCallback(", "");
+        ret = ret.slice(0, ret.length - 1);
+      }
+      res.json(JSON.parse(ret));
     })
     .catch(e => {
       console.log(e);

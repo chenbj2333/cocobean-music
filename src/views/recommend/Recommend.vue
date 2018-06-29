@@ -30,6 +30,7 @@
         <loading></loading>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import Slider from "../../base/slider/Slider.vue";
 import Scroll from "../../base/scroll/Scroll.vue";
 import Loading from "../../base/loading/Loading.vue";
 import { playlistMixin } from "../../common/js/mixin.js";
+import { mapMutations } from "vuex";
 
 export default {
   name: "Recommend",
@@ -81,7 +83,14 @@ export default {
       const bottom = playlist && playlist.length > 0 ? "60px" : "";
       this.$refs.recommend.style.bottom = bottom;
       this.$refs.scroll.refresh();
-    }
+    },
+    selectItem(item) {
+      this.$router.push({path: `/recommend/${item.dissid}`});
+      this.setDisc(item);
+    },
+    ...mapMutations("disc", {
+      setDisc: "SET_DISC"
+    })
   },
   created() {
     this._getRecommend();
